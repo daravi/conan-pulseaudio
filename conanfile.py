@@ -109,6 +109,9 @@ class LibnameConan(ConanFile):
             if self.options['fftw'].precision != "single":
                 raise ConanInvalidConfiguration("pulseaudio needs fftw to be built with option fftw:precision=single")
 
+        # TODO: Should be removed once/if https://github.com/conan-io/conan/issues/7720 is resolved
+        os.environ["GLIB_COMPILE_SCHEMAS"] = os.path.join(self.deps_cpp_info["glib"].rootpath, "bin", "glib-compile-schemas")
+
         autotools = self._configure_autotools()
         autotools.make()
 
